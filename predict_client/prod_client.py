@@ -16,7 +16,7 @@ class ProdClient:
         self.model_name = model_name
         self.model_version = model_version
 
-    def predict(self, request_data, request_timeout=10):
+    def predict(self, request_data, request_timeout=10, max_message_size=4):
 
         self.logger.info('Sending request to tfserving model')
         self.logger.info('Host: {}'.format(self.host))
@@ -25,7 +25,11 @@ class ProdClient:
 
         # Create gRPC client and request
         t = time.time()
-        channel = grpc.insecure_channel(self.host)
+        options = [('grpc.max_message_length', max_message_size * 1024 * 1024),
+                   ('grpc.max_send_message_length', max_message_size * 1024 * 1024),
+                   ('grpc.max_receive_message_length', max_message_size * 1024 * 1024)
+                  ]
+        channel = grpc.insecure_channel(self.host, options=options)
         self.logger.debug('Establishing insecure channel took: {}'.format(time.time() - t))
 
         t = time.time()
