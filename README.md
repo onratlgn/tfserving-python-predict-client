@@ -12,7 +12,7 @@ Read my blog posts about TensorFlow Serving:
 
 
 ### Install
-`pip install git+ssh://git@github.com/onratlgn/tfserving-python-predict-client.git`
+`pip install git+http://git@github.com/onratlgn/tfserving-python-predict-client.git`
 
 ### If you need a model server
 There is one here https://hub.docker.com/r/epigramai/model-server/
